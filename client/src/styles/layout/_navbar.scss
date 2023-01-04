@@ -1,0 +1,63 @@
+@use "../helpers" as h;
+
+nav {
+    justify-content: space-between;
+    padding: 1em 2em;
+    background: h.$navbar_bg;
+    align-items: center;
+
+    &,
+    .links {
+        display: flex;
+    }
+
+    .links {
+        gap: 3em;
+
+        li {
+            position: relative;
+
+            &::before,
+            &::after {
+                content: "";
+
+                transition: transform 1s ease;
+
+                pointer-events: none;
+
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+            }
+
+            &::before {
+                border-top: 0.2em solid h.$navbar_btn;
+                border-bottom: 0.2em solid h.$navbar_btn;
+                transform: scale(0, 1);
+            }
+
+            &::after {
+                border-left: 0.2em solid h.$navbar_btn;
+                border-right: 0.2em solid h.$navbar_btn;
+                transform: scale(1, 0);
+            }
+
+            &:hover::before {
+                transform: scale(1, 1);
+            }
+
+            &:hover::after {
+                transform: scale(1, 1);
+            }
+        }
+
+        a {
+            font-size: 1.2em;
+            user-select: none;
+            padding: 0.8em 1.6em;
+            display: inline-block;
+        }
+    }
+}

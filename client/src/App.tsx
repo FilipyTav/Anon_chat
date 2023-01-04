@@ -1,10 +1,15 @@
 import { FC, ReactElement } from "react";
+import Navbar from "./components/Navbar";
 import "./styles/App.scss";
 
 interface Props {}
 
 const App: FC<Props> = (): ReactElement => {
-    return <div>Setup</div>;
+    return (
+        <>
+            <Navbar />
+        </>
+    );
 };
 
 export default App;
