@@ -16,14 +16,20 @@ nav {
 
         li {
             position: relative;
+            z-index: 0;
+
+            &:hover {
+                color: h.$navbar_btn;
+            }
 
             &::before,
             &::after {
                 content: "";
 
-                transition: transform 1s ease;
+                transition: transform 0.7s ease;
 
                 pointer-events: none;
+                border-radius: 10%;
 
                 position: absolute;
                 left: 0;
@@ -36,6 +42,8 @@ nav {
                 border-top: 0.2em solid h.$navbar_btn;
                 border-bottom: 0.2em solid h.$navbar_btn;
                 transform: scale(0, 1);
+                background-color: darken(h.$navbar_bg, 20%);
+                z-index: -1;
             }
 
             &::after {
