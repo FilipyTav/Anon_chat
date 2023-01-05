@@ -35,16 +35,33 @@ main.boards {
         flex-flow: column nowrap;
         gap: 1em;
 
-        // Temporary, gonna change to minmax
-        // max-height: 100px;
-        // max-width: 200px;
+        align-items: center;
+
+        align-self: start;
 
         overflow: hidden;
+
+        transition: min-height 1s ease, min-width 1s ease;
+
+        min-height: 0;
+        min-width: 0;
+
+        &:hover {
+            min-height: 20vh;
+            min-width: 20vw;
+
+            .messages {
+                transform: translate(0, 30%);
+                padding: 0.3em 0.5em 0 0.5em;
+            }
+        }
 
         .name {
             text-align: center;
             background: purple;
             margin: 0 -0.3em;
+            padding: 0 1em;
+            align-self: stretch;
         }
 
         .messages {
@@ -52,6 +69,14 @@ main.boards {
             display: flex;
             flex-flow: column nowrap;
             gap: 1em;
+
+            position: absolute;
+            top: 0;
+            transform: translate(0, 100%);
+            transition: transform 1s ease, padding 1s ease;
+            padding: 0;
+
+            width: 100%;
         }
 
         .message {
