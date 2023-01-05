@@ -1,13 +1,20 @@
 import { FC, ReactElement } from "react";
-import Navbar from "./components/Navbar";
+
 import "./styles/App.scss";
 
+import Boards from "./components/Boards_menu";
+import Navbar from "./components/Navbar";
+
 interface Props {}
+
+const current_board = null;
 
 const App: FC<Props> = (): ReactElement => {
     return (
         <>
             <Navbar />
+
+            {current_board ? <>Nope</> : <Boards />}
         </>
     );
 };
