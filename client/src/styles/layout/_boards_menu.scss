@@ -9,6 +9,7 @@ main.boards {
     padding: 1em 2em;
 
     display: flex;
+    flex-flow: column nowrap;
     gap: 2em;
 
     .board::before {
@@ -36,19 +37,18 @@ main.boards {
         gap: 1em;
 
         align-items: center;
-
         align-self: start;
 
         overflow: hidden;
 
-        transition: min-height 1s ease, min-width 1s ease;
+        transition: min-height 1s ease;
 
         min-height: 0;
-        min-width: 0;
+        min-width: 90%;
+        margin: 0 auto;
 
         &:hover {
-            min-height: 20vh;
-            min-width: 20vw;
+            min-height: 30vh;
 
             .messages {
                 transform: translate(0, 30%);
@@ -81,6 +81,24 @@ main.boards {
 
         .message {
             background: red;
+            padding: 0 0.5em;
+            display: flex;
+            flex-flow: column nowrap;
+            gap: 0.2em;
+
+            .author {
+                text-align: center;
+            }
+        }
+    }
+}
+
+@media (min-width: 40em) {
+    main.boards {
+        flex-flow: row wrap;
+
+        .board {
+            min-width: 21vw;
         }
     }
 }

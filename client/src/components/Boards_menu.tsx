@@ -21,8 +21,8 @@ const Boards: FC<Props> = ({ boards }): ReactElement => {
                             {board.messages.map((msg) => {
                                 return (
                                     <div className="message" key={msg.author}>
-                                        <h2>{msg.author}</h2>
-                                        {msg.content}
+                                        <h2 className="author">{msg.author}</h2>
+                                        <p className="content">{msg.content}</p>
                                     </div>
                                 );
                             })}

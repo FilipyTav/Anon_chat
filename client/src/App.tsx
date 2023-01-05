@@ -35,9 +35,485 @@ const boards: BoardType[] = [
         name: "specific",
         messages: [],
     },
+    {
+        name: "specific",
+        messages: [],
+    },
+    {
+        name: "specific",
+        messages: [],
+    },
+    {
+        name: "specific",
+        messages: [],
+    },
+    {
+        name: "specific",
+        messages: [],
+    },
+    {
+        name: "specific",
+        messages: [],
+    },
+    {
+        name: "specific",
+        messages: [],
+    },
+    {
+        name: "specific",
+        messages: [],
+    },
+    {
+        name: "specific",
+        messages: [],
+    },
+    {
+        name: "specific",
+        messages: [],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
+    {
+        name: "general",
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
+    },
 ];
 
-interface Props {}
+interface Props { }
 
 const App: FC<Props> = (): ReactElement => {
     const [current_board, set_current_board] = useState<BoardType | null>(null);
