@@ -13,7 +13,23 @@ import Board from "./components/Board";
 const boards: BoardType[] = [
     {
         name: "general",
-        messages: [],
+        messages: [
+            {
+                author: "me",
+                content: "Hello",
+                replies: [],
+            },
+            {
+                author: "dunno",
+                content: "Hi",
+                replies: [],
+            },
+            {
+                author: "hey",
+                content: "how are ya",
+                replies: [],
+            },
+        ],
     },
     {
         name: "specific",

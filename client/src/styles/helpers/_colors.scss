@@ -1,2 +1,9 @@
-$navbar_bg: powderblue;
-$navbar_btn: purple;
+$navbar: (
+    "bg": powderblue,
+    "btn_border": purple,
+);
+
+$boards_menu: (
+    "bg": #120113,
+    "fg": #ffffff,
+);

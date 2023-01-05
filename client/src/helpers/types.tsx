@@ -1,5 +1,6 @@
 type MessageType = {
     author: string;
+    content: string;
     replies: MessageType[];
 };
 

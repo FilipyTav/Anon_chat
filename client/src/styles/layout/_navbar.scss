@@ -1,9 +1,12 @@
 @use "../helpers" as h;
+@use "sass:map";
+
+$btn: map.get(h.$navbar, "btn_border");
 
 nav {
     justify-content: space-between;
     padding: 1em 2em;
-    background: h.$navbar_bg;
+    background: map.get(h.$navbar, "bg");
     align-items: center;
 
     &,
@@ -19,7 +22,7 @@ nav {
             z-index: 0;
 
             &:hover {
-                color: h.$navbar_btn;
+                color: map.get(h.$navbar, "btn_border");
             }
 
             &::before,
@@ -39,16 +42,16 @@ nav {
             }
 
             &::before {
-                border-top: 0.2em solid h.$navbar_btn;
-                border-bottom: 0.2em solid h.$navbar_btn;
+                border-top: 0.2em solid map.get(h.$navbar, "btn_border");
+                border-bottom: 0.2em solid map.get(h.$navbar, "btn_border");
                 transform: scale(0, 1);
-                background-color: darken(h.$navbar_bg, 20%);
+                background-color: darken(map.get(h.$navbar, "bg"), 20%);
                 z-index: -1;
             }
 
             &::after {
-                border-left: 0.2em solid h.$navbar_btn;
-                border-right: 0.2em solid h.$navbar_btn;
+                border-left: 0.2em solid map.get(h.$navbar, "btn_border");
+                border-right: 0.2em solid map.get(h.$navbar, "btn_border");
                 transform: scale(1, 0);
             }
 
@@ -64,7 +67,7 @@ nav {
         a {
             font-size: 1.2em;
             user-select: none;
-            padding: 0.8em 1.6em;
+            padding: 0.4em 0.8em;
             display: inline-block;
         }
     }
