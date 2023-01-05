@@ -1,11 +1,11 @@
-type Message = {
+type MessageType = {
     author: string;
-    replies: Message[];
+    replies: MessageType[];
 };
 
-type Board = {
+type BoardType = {
     name: string;
-    messages: Message[];
+    messages: MessageType[];
 };
 
-export type { Message, Board };
+export type { MessageType, BoardType };

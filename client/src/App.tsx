@@ -1,20 +1,45 @@
-import { FC, ReactElement } from "react";
+import { FC, ReactElement, useEffect, useState } from "react";
 
 import "./styles/App.scss";
 
+import { BoardType } from "./helpers/types";
+
 import Boards from "./components/Boards_menu";
 import Navbar from "./components/Navbar";
+import Board from "./components/Board";
+
+// All the main boards
+// will change later to get from database
+const boards: BoardType[] = [
+    {
+        name: "general",
+        messages: [],
+    },
+    {
+        name: "specific",
+        messages: [],
+    },
+];
 
 interface Props {}
 
-const current_board = null;
-
 const App: FC<Props> = (): ReactElement => {
+    const [current_board, set_current_board] = useState<BoardType | null>(null);
+
+    useEffect(() => {
+        // See if loads a board
+        set_current_board(null);
+    }, []);
+
     return (
         <>
             <Navbar />
 
-            {current_board ? <>Nope</> : <Boards />}
+            {current_board ? (
+                <Board data={current_board} />
+            ) : (
+                <Boards boards={boards} />
+            )}
         </>
     );
 };
