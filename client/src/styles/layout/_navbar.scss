@@ -140,9 +140,19 @@ nav {
         .links {
             gap: 3em;
 
+            // Resets some styling from smaller screens
+            position: relative;
+            min-height: auto;
+            background: inherit;
+            box-shadow: none;
+            flex-flow: row nowrap;
+            color: inherit;
+            transform: translate(0);
+
             li {
                 position: relative;
                 z-index: 0;
+                border: none;
 
                 &:hover {
                     color: map.get(h.$navbar, "btn_border");
@@ -162,6 +172,8 @@ nav {
                     right: 0;
                     top: 0;
                     bottom: 0;
+
+                    box-shadow: none;
                 }
 
                 &::before {
@@ -185,13 +197,6 @@ nav {
                 &:hover::after {
                     transform: scale(1, 1);
                 }
-            }
-
-            a {
-                font-size: 1.2em;
-                user-select: none;
-                padding: 0.4em 0.8em;
-                display: inline-block;
             }
         }
     }
