@@ -513,25 +513,18 @@ const boards: BoardType[] = [
     },
 ];
 
-interface Props { }
+interface Props {}
 
 const App: FC<Props> = (): ReactElement => {
     const [current_board, set_current_board] = useState<BoardType | null>(null);
-    const [mq, set_mq] = useState<boolean>(
-        window.matchMedia("(min-width: 40em)").matches,
-    );
 
     useEffect(() => {
         set_current_board(null);
-
-        window
-            .matchMedia("(min-width: 40em)")
-            .addEventListener("change", (e) => set_mq(e.matches));
     }, []);
 
     return (
         <>
-            <Navbar window_matches={mq} />
+            <Navbar />
 
             {current_board ? (
                 <Board data={current_board} />

@@ -1,31 +1,33 @@
-import { FC, ReactElement } from "react";
+import { FC, ReactElement, useState } from "react";
 
-interface Props {
-    window_matches: boolean;
-}
+interface Props {}
 
-const Navbar: FC<Props> = ({ window_matches }): ReactElement => {
+const Navbar: FC<Props> = (): ReactElement => {
+    const [active, set_active] = useState<boolean>(false);
+
     return (
         <nav>
             <div className="logo">Logo</div>
 
-            {window_matches ? (
-                <></>
-            ) : (
-                <div className="menu">
-                    <span>|</span>
-                    <span>|</span>
-                    <span>|</span>
-                </div>
-            )}
+            <div
+                className={`menu ${active ? "active" : ""}`}
+                onClick={() => set_active((prev_state) => !prev_state)}
+            >
+                <span>|</span>
+                <span>|</span>
+                <span>|</span>
+                <span>|</span>
+            </div>
 
-            <ul className="links">
+            <ul className={`links ${active ? "active" : ""}`}>
                 <li>
                     <a href="#">Sign in</a>
                 </li>
+
                 <li>
                     <a href="#">Sign up</a>
                 </li>
+
                 <li>
                     <a href="#">Membership</a>
                 </li>
