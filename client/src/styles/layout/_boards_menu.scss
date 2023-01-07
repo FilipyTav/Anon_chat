@@ -19,14 +19,14 @@ main.boards {
         left: 0;
         width: 100%;
         height: 100%;
-        box-shadow: inset 0 -5px 5px;
+        box-shadow: inset 0 -5px 5px map.get(h.$boards_menu, "border");
         z-index: 1;
         pointer-events: none;
     }
 
     .board {
         color: map.get(h.$boards_menu, "fg");
-        border: 0.3em solid white;
+        border: 0.3em solid map.get(h.$boards_menu, "border");
         border-radius: 10px;
         padding: 0.6em 0.3em;
 
@@ -47,7 +47,7 @@ main.boards {
         min-width: 90%;
         margin: 0 auto;
 
-        &:hover {
+        &.active {
             min-height: 30vh;
 
             .messages {
@@ -62,10 +62,14 @@ main.boards {
             margin: 0 -0.3em;
             padding: 0 1em;
             align-self: stretch;
+
+            a:hover {
+                color: map.get(h.$boards_menu, "board_name");
+            }
         }
 
         .messages {
-            background: royalblue;
+            background: map.get(h.$boards_menu, "msgs_bg");
             display: flex;
             flex-flow: column nowrap;
             gap: 1em;
@@ -80,7 +84,7 @@ main.boards {
         }
 
         .message {
-            background: red;
+            background: map.get(h.$boards_menu, "msg_bg");
             padding: 0 0.5em;
             display: flex;
             flex-flow: column nowrap;

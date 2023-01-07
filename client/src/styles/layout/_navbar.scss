@@ -11,6 +11,7 @@ nav {
 
     .menu {
         display: flex;
+        gap: 0em;
         cursor: pointer;
 
         &.active {
@@ -41,7 +42,8 @@ nav {
         }
 
         span:nth-child(4) {
-            opacity: 0;
+            // opacity: 0;
+            transform: translate(-9px, 0);
         }
     }
 
