@@ -1,8 +1,11 @@
 import express, { Application } from "express";
 
 import path from "path";
+import dotenv from "dotenv";
 
 import index_router from "./routes/index";
+
+dotenv.config();
 
 const app: Application = express();
 
@@ -10,18 +13,17 @@ const app: Application = express();
 app.use(
     express.urlencoded({
         extended: true,
-    }),
+    })
 );
 
-const port: Number = 3000;
+// Parses json
+app.use(express.json());
+
+const port: Number = Number(process.env.PORT) || 6001;
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
-
-// View engine setup
-// app.set("views", path.join(__dirname, "./mvc/views"));
-// app.set("view engine", "pug");
 
 // Setup static directory
 app.use(express.static(path.join(__dirname, "/../dist")));
