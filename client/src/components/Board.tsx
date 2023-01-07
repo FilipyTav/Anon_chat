@@ -1,4 +1,5 @@
 import { FC, ReactElement } from "react";
+import { useParams } from "react-router-dom";
 
 import { BoardType } from "../helpers/types";
 

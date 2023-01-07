@@ -1,4 +1,5 @@
 import { FC, ReactElement, MouseEvent } from "react";
+import { Link } from "react-router-dom";
 
 import { BoardType } from "../helpers/types";
 
@@ -33,9 +34,9 @@ const Boards: FC<Props> = ({ boards }): ReactElement => {
                     >
                         {/* Displays the name with the first letter uppercased */}
                         <h2 className="name">
-                            <a href="#">{`${board.name
+                            <Link to="/board">{`${board.name
                                 .slice(0, 1)
-                                .toUpperCase()}${board.name.slice(1)}`}</a>
+                                .toUpperCase()}${board.name.slice(1)}`}</Link>
                         </h2>
 
                         <div className="messages">
