@@ -1,0 +1,49 @@
+@use "../helpers" as h;
+@use "sass:map";
+
+main.board {
+    background: map.get(h.$boards_menu, "bg");
+    color: map.get(h.$boards_menu, "fg");
+
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1em;
+
+    width: 90%;
+    margin: 0 auto;
+
+    .posts {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 2em;
+
+        .post {
+            background-color: map.get(h.$boards_menu, "msg_bg");
+            overflow-wrap: break-word;
+
+            display: flex;
+            flex-flow: column nowrap;
+            gap: 0.5em;
+
+            .details {
+                .post_author {
+                    text-align: center;
+                }
+            }
+
+            .post_content {
+                padding: 0.5em 0.8em;
+                background-color: map.get(h.$boards_menu, "msgs_bg");
+            }
+
+            &:last-child {
+                margin-bottom: 1em;
+            }
+        }
+    }
+
+    .board_name {
+        margin-top: 0.8em;
+        align-self: center;
+    }
+}

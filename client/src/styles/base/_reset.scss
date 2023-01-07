@@ -1,3 +1,6 @@
+@use "../helpers" as h;
+@use "sass:map";
+
 * {
     padding: 0;
     margin: 0;
@@ -26,4 +29,6 @@ body {
     grid-template-rows: auto 1fr;
     min-width: 100vw;
     min-height: 100vh;
+
+    background: map.get(h.$boards_menu, "bg");
 }

@@ -71,9 +71,9 @@ nav {
 
         box-shadow: 5px 5px 5px (map.get(h.$navbar, "menu_bg"));
 
-        transition: transform 1s ease;
+        transition: transform 1s ease-out;
         overflow: hidden;
-        transform: translate(-50vw, 0);
+        transform: translate(-100vw, 0);
 
         &.active {
             transform: translate(0);
