@@ -1,4 +1,5 @@
 import { FC, ReactElement, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface Props {}
 
@@ -7,7 +8,9 @@ const Navbar: FC<Props> = (): ReactElement => {
 
     return (
         <nav>
-            <div className="logo">Logo</div>
+            <Link to="/boards" className="logo_icon">
+                Logo
+            </Link>
 
             <div
                 className={`menu ${active ? "active" : ""}`}
