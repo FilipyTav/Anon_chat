@@ -11,12 +11,18 @@ interface UserInterface extends Document {
     username: string;
     password: string;
     messages: MessageInterface[];
+    membership_status: string;
 }
 
 const UserSchema: Schema = new Schema({
-    username: { type: String, required: true },
-    password: { type: String, required: true },
+    username: { type: String, required: true, min: 1, unique: true },
+    password: { type: String, required: true, min: 1 },
     messages: [{ type: Schema.Types.ObjectId, ref: "Message" }],
+    membership_status: {
+        type: String,
+        enum: ["non_member", "member", "admin"],
+        required: true,
+    },
 });
 
 UserSchema.virtual("url").get(function () {

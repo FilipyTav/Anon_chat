@@ -14,13 +14,18 @@ interface MessageInterface extends Document {
 }
 
 const MessageSchema: Schema = new Schema({
-    author: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+        unique: true,
+    },
     content: {
         type: String,
         required: true,
         min: [1, "Message content cannot be empty"],
     },
-    replies: [{ type: Schema.Types.ObjectId, ref: "Message" }],
+    replies: [this],
 });
 
 const Message: Model<MessageInterface> = mongoose.model<MessageInterface>(
