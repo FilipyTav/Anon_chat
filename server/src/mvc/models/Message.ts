@@ -7,7 +7,7 @@ import mongoose, { Model, Schema } from "mongoose";
 
 interface MessageInterface extends Document {
     content: string;
-    replies: Omit<MessageInterface, "replies">;
+    // replies: Omit<MessageInterface, "replies">;
 }
 
 const MessageSchema: Schema = new Schema(
@@ -16,8 +16,9 @@ const MessageSchema: Schema = new Schema(
             type: String,
             required: true,
             min: [1, "Message content cannot be empty"],
+            trim: true,
         },
-        replies: [{ type: Schema.Types.ObjectId, ref: "Message" }],
+        // replies: [{ type: Schema.Types.ObjectId, ref: "Message" }],
     },
     { timestamps: true }
 );

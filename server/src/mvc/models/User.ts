@@ -16,7 +16,13 @@ interface UserInterface extends Document {
 
 const UserSchema: Schema = new Schema(
     {
-        username: { type: String, required: true, min: 1, unique: true },
+        username: {
+            type: String,
+            required: true,
+            min: 1,
+            unique: true,
+            trim: true,
+        },
         password: { type: String, required: true, min: 1 },
         messages: [{ type: Schema.Types.ObjectId, ref: "Message" }],
         membership_status: {

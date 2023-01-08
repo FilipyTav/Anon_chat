@@ -20,7 +20,7 @@ type BoardType = {
 
 type MessageType = {
     content: string;
-    replies: Omit<MessageInterface, "replies">[];
+    // replies: Omit<MessageInterface, "replies">[];
 };
 
 type UserType = {
@@ -51,9 +51,9 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 // Deletes all the current data in database, if necessary
-// User.collection.drop();
-// Message.collection.drop();
-// Board.collection.drop();
+User.collection.drop();
+Message.collection.drop();
+Board.collection.drop();
 
 const users: UserInterface[] = [];
 const messages: MessageInterface[] = [];
@@ -91,15 +91,15 @@ async function UserCreate(
 
 async function MessageCreate(
     content: string,
-    replies: Omit<MessageInterface, "replies">[],
+    // replies: Omit<MessageInterface, "replies">[],
     cb: Function
 ) {
     const message_detail: MessageType = {
         content,
-        replies: [],
+        // replies: [],
     };
 
-    if (replies.length) message_detail.replies = replies;
+    // if (replies.length) message_detail.replies = replies;
 
     const message = new Message(message_detail);
 
@@ -208,23 +208,22 @@ const createMessages = async (cb) => {
         let results = await async.parallel(
             [
                 function (callback: Function) {
-                    MessageCreate("first message", [], callback);
+                    MessageCreate("first message", callback);
                 },
                 function (callback: Function) {
-                    MessageCreate("second message", [], callback);
+                    MessageCreate("second message", callback);
                 },
                 function (callback: Function) {
                     MessageCreate(
                         "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
-                        [],
                         callback
                     );
                 },
                 function (callback: Function) {
-                    MessageCreate("lorem10", [], callback);
+                    MessageCreate("lorem10", callback);
                 },
                 function (callback: Function) {
-                    MessageCreate("lorem ipsum or smt", [], callback);
+                    MessageCreate("lorem ipsum or smt", callback);
                 },
             ],
             cb

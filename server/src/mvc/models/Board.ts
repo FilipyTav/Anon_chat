@@ -17,6 +17,7 @@ const BoardSchema: Schema = new Schema(
             type: String,
             required: true,
             unique: true,
+            trim: true,
         },
         messages: [{ type: Schema.Types.ObjectId, ref: "Message" }],
     },
