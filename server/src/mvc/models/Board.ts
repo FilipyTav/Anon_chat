@@ -11,14 +11,17 @@ interface BoardInterface extends Document {
     messages: MessageInterface[];
 }
 
-const BoardSchema: Schema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true,
+const BoardSchema: Schema = new Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        messages: [{ type: Schema.Types.ObjectId, ref: "Message" }],
     },
-    messages: [{ type: Schema.Types.ObjectId, ref: "Message" }],
-});
+    { timestamps: true }
+);
 
 BoardSchema.virtual("url").get(function () {
     return `/board/${this.name}`;
