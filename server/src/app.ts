@@ -2,10 +2,18 @@ import express, { Application } from "express";
 
 import path from "path";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 
 import index_router from "./routes/index";
+import board_router from "./routes/board";
 
 dotenv.config();
+
+const mongoDB = process.env.MONGODB_CONNECTION || "";
+mongoose.connect(mongoDB);
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 const app: Application = express();
 
@@ -29,3 +37,4 @@ app.listen(port, () => {
 app.use(express.static(path.join(__dirname, "/../dist")));
 
 app.use("/", index_router);
+app.use("/boards", board_router);
