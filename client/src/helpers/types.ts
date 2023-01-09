@@ -7,6 +7,7 @@ type MessageType = {
 type BoardType = {
     name: string;
     messages: MessageType[];
+    url: string;
 };
 
 export type { MessageType, BoardType };

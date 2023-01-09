@@ -12,7 +12,14 @@ interface UserInterface extends Document {
     password: string;
     messages: MessageInterface[];
     membership_status: string;
+    url: string;
 }
+
+const opts = {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    // toObject: { virtuals: true },
+};
 
 const UserSchema: Schema = new Schema(
     {
@@ -32,12 +39,14 @@ const UserSchema: Schema = new Schema(
             default: "guest",
         },
     },
-    { timestamps: true }
+    opts
 );
 
 UserSchema.virtual("url").get(function () {
     return `/users/user/${this._id}`;
 });
+
+// UserSchema.set("toJSON", { getters: true, virtuals: true });
 
 const User: Model<UserInterface> = mongoose.model<UserInterface>(
     "User",

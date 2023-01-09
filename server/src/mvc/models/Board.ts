@@ -9,7 +9,14 @@ import { MessageInterface } from "./Message";
 interface BoardInterface extends Document {
     name: string;
     messages: MessageInterface[];
+    url: string;
 }
+
+const opts = {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    // toObject: { virtuals: true},
+};
 
 const BoardSchema: Schema = new Schema(
     {
@@ -21,12 +28,14 @@ const BoardSchema: Schema = new Schema(
         },
         messages: [{ type: Schema.Types.ObjectId, ref: "Message" }],
     },
-    { timestamps: true }
+    opts
 );
 
 BoardSchema.virtual("url").get(function () {
     return `/board/${this.name}`;
 });
+
+// BoardSchema.set("toJSON", { getters: true, virtuals: true });
 
 const Board: Model<BoardInterface> = mongoose.model<BoardInterface>(
     "Board",

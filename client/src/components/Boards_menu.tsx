@@ -34,7 +34,7 @@ const Boards: FC<Props> = ({ boards }): ReactElement => {
                     >
                         {/* Displays the name with the first letter uppercased */}
                         <h2 className="name">
-                            <Link to={`/board/${board.name}`}>{`${board.name
+                            <Link to={board.url}>{`${board.name
                                 .slice(0, 1)
                                 .toUpperCase()}${board.name.slice(1)}`}</Link>
                         </h2>
