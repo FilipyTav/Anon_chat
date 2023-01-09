@@ -1,13 +1,23 @@
-import { FC, ReactElement, MouseEvent } from "react";
+import axios from "axios";
+import { FC, ReactElement, MouseEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { BoardType } from "../helpers/types";
 
-interface Props {
-    boards: BoardType[];
-}
+interface Props {}
 
-const Boards: FC<Props> = ({ boards }): ReactElement => {
+const Boards: FC<Props> = (): ReactElement => {
+    const [boards, set_boards] = useState<BoardType[]>([]);
+
+    const get_boards = async () => {
+        const result = await axios.get("http://localhost:3001/");
+        set_boards(result.data);
+    };
+
+    useEffect(() => {
+        get_boards();
+    }, []);
+
     // Adds or removes the 'active' class to a container
     const toggle_active = (
         e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>,
