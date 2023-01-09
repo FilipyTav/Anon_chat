@@ -24,7 +24,10 @@ const menu = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const boards = await Board.find().populate("messages");
+        const boards = await Board.find().populate({
+            path: "messages",
+            populate: { path: "author" },
+        });
 
         res.status(200).json(boards);
     } catch (err) {

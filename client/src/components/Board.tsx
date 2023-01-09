@@ -4,9 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { BoardType, MessageType } from "../helpers/types";
 
-interface Props {
-    // data: BoardType | null;
-}
+interface Props {}
 
 const Board: FC<Props> = (): ReactElement => {
     const { name } = useParams();
@@ -38,7 +36,7 @@ const Board: FC<Props> = (): ReactElement => {
                 {board_data.messages.map((msg: MessageType) => (
                     <div className="post" key={msg._id}>
                         <div className="details">
-                            <p className="post_author">{msg.author}</p>
+                            <p className="post_author">{msg.author.username}</p>
                         </div>
                         <p className="post_content">{msg.content}</p>
                     </div>
