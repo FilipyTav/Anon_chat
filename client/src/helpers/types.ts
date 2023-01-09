@@ -8,6 +8,7 @@ type BoardType = {
     name: string;
     messages: MessageType[];
     url: string;
+    _id: string;
 };
 
 export type { MessageType, BoardType };

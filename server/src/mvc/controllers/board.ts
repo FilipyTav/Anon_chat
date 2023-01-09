@@ -20,15 +20,31 @@ interface ResponseError extends Error {
     status?: number;
 }
 
-const index = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const boards = await Board.find().populate("messages");
+const index = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    res.status(404);
+};
 
-        res.status(200).json({ success: true, data: boards });
+const board_detail = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const { name } = req.params;
+        const board = await Board.find({ name }).populate("messages");
+        console.log(board);
+
+        if (board.length === 0) throw "No board was found";
+
+        res.status(200).json(board);
     } catch (err) {
         console.log(err);
-        res.status(400).json({ success: false, data: err });
+        res.status(404).json(err);
     }
 };
 
-export { index };
+export { index, board_detail };

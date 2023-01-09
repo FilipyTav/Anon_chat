@@ -1,23 +1,41 @@
-import { FC, ReactElement } from "react";
+import axios from "axios";
+import { FC, ReactElement, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { BoardType, MessageType } from "../helpers/types";
 
 interface Props {
-    data: BoardType | null;
+    // data: BoardType | null;
 }
 
-const Board: FC<Props> = ({ data }): ReactElement => {
-    if (!data) return <></>;
+const Board: FC<Props> = (): ReactElement => {
+    const { name } = useParams();
+
+    const [board_data, set_board_data] = useState<BoardType>({
+        name: "",
+        messages: [],
+        url: "",
+        _id: "",
+    });
+
+    const get_board_data = async () => {
+        const result = await axios.get(`http://localhost:3001/${name}`);
+
+        set_board_data(result.data.data);
+    };
+
+    useEffect(() => {
+        get_board_data();
+    }, []);
 
     return (
         <main className="board">
-            <h1 className="board_name">{`${data.name
+            <h1 className="board_name">{`${board_data.name
                 .slice(0, 1)
-                .toUpperCase()}${data.name.slice(1)}`}</h1>
+                .toUpperCase()}${board_data.name.slice(1)}`}</h1>
 
             <div className="posts">
-                {data.messages.map((msg: MessageType) => (
+                {board_data.messages.map((msg: MessageType) => (
                     <div className="post">
                         <div className="details">
                             <p className="post_author">{msg.author}</p>

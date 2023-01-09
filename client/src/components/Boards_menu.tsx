@@ -23,11 +23,11 @@ const Boards: FC<Props> = ({ boards }): ReactElement => {
 
     return (
         <main className="boards">
-            {boards.map((board: BoardType, index: number) => {
+            {boards.map((board: BoardType) => {
                 return (
                     <div
                         className="board"
-                        key={board.name}
+                        key={board._id}
                         onClick={(
                             e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>
                         ) => toggle_active(e, "board")}

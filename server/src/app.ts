@@ -36,4 +36,4 @@ app.listen(port, () => {
 app.use(express.static(path.join(__dirname, "/../dist")));
 
 app.use("/", index_router);
-app.use("/boards", board_router);
+app.use("/board", board_router);

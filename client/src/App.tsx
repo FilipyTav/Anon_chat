@@ -18,9 +18,7 @@ const App: FC<Props> = (): ReactElement => {
 
     const get_boards = async () => {
         const result = await axios.get("http://localhost:3001/");
-        set_boards(result.data.data);
-        console.log(result.data.data[0].url);
-        console.log(result.data.data);
+        set_boards(result.data);
     };
 
     useEffect(() => {
@@ -38,10 +36,7 @@ const App: FC<Props> = (): ReactElement => {
 
                 <Route path="/boards" element={<Boards boards={boards} />} />
 
-                <Route
-                    path="/board/:name"
-                    element={<Board data={current_board} />}
-                />
+                <Route path="/board/:name" element={<Board />} />
             </Routes>
         </BrowserRouter>
     );
