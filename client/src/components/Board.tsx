@@ -19,9 +19,9 @@ const Board: FC<Props> = (): ReactElement => {
     });
 
     const get_board_data = async () => {
-        const result = await axios.get(`http://localhost:3001/${name}`);
+        const result = await axios.get(`http://localhost:3001/board/${name}`);
 
-        set_board_data(result.data.data);
+        set_board_data(result.data);
     };
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const Board: FC<Props> = (): ReactElement => {
 
             <div className="posts">
                 {board_data.messages.map((msg: MessageType) => (
-                    <div className="post">
+                    <div className="post" key={msg._id}>
                         <div className="details">
                             <p className="post_author">{msg.author}</p>
                         </div>

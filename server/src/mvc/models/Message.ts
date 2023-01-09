@@ -4,9 +4,12 @@
 // replies
 
 import mongoose, { Model, Schema } from "mongoose";
+import { UserInterface } from "./User";
 
 interface MessageInterface extends Document {
     content: string;
+    author: UserInterface;
+    _id: string;
     // replies: Omit<MessageInterface, "replies">;
 }
 
@@ -18,6 +21,7 @@ const MessageSchema: Schema = new Schema(
             min: [1, "Message content cannot be empty"],
             trim: true,
         },
+        author: { type: Schema.Types.ObjectId, ref: "User", required: true },
         // replies: [{ type: Schema.Types.ObjectId, ref: "Message" }],
     },
     { timestamps: true }

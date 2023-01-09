@@ -19,6 +19,7 @@ type BoardType = {
 };
 
 type MessageType = {
+    author: UserInterface;
     content: string;
     // replies: Omit<MessageInterface, "replies">[];
 };
@@ -26,7 +27,6 @@ type MessageType = {
 type UserType = {
     username: string;
     password: string;
-    messages: MessageInterface[] | null;
     membership_status: string;
 };
 
@@ -69,11 +69,11 @@ async function UserCreate(
     const user_detail: UserType = {
         username,
         password,
-        messages: null,
+        // messages: null,
         membership_status,
     };
 
-    if (messages) user_detail.messages = messages;
+    // if (messages) user_detail.messages = messages;
 
     const user = new User(user_detail);
 
@@ -90,11 +90,13 @@ async function UserCreate(
 }
 
 async function MessageCreate(
+    author: UserInterface,
     content: string,
     // replies: Omit<MessageInterface, "replies">[],
     cb: Function
 ) {
     const message_detail: MessageType = {
+        author,
         content,
         // replies: [],
     };
@@ -170,7 +172,7 @@ const createUsers = async (cb) => {
                     UserCreate(
                         "user3",
                         "random password",
-                        [messages[2], messages[1]],
+                        [messages[3]],
                         "guest",
                         callback
                     );
@@ -179,7 +181,7 @@ const createUsers = async (cb) => {
                     UserCreate(
                         "userm",
                         "random password",
-                        [messages[2], messages[1], messages[0]],
+                        [messages[4]],
                         "member",
                         callback
                     );
@@ -208,22 +210,23 @@ const createMessages = async (cb) => {
         let results = await async.parallel(
             [
                 function (callback: Function) {
-                    MessageCreate("first message", callback);
+                    MessageCreate(users[0], "first message", callback);
                 },
                 function (callback: Function) {
-                    MessageCreate("second message", callback);
+                    MessageCreate(users[1], "second message", callback);
                 },
                 function (callback: Function) {
                     MessageCreate(
+                        users[2],
                         "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
                         callback
                     );
                 },
                 function (callback: Function) {
-                    MessageCreate("lorem10", callback);
+                    MessageCreate(users[3], "lorem10", callback);
                 },
                 function (callback: Function) {
-                    MessageCreate("lorem ipsum or smt", callback);
+                    MessageCreate(users[5], "lorem ipsum or smt", callback);
                 },
             ],
             cb
@@ -258,9 +261,9 @@ const createBoards = async (cb) => {
 const init = async () => {
     try {
         const results = await async.series([
+            createUsers,
             createMessages,
             createBoards,
-            createUsers,
         ]);
 
         console.log("Users: " + users);

@@ -10,7 +10,7 @@ import { MessageInterface } from "./Message";
 interface UserInterface extends Document {
     username: string;
     password: string;
-    messages: MessageInterface[];
+    // messages: MessageInterface[];
     membership_status: string;
     url: string;
 }
@@ -31,7 +31,7 @@ const UserSchema: Schema = new Schema(
             trim: true,
         },
         password: { type: String, required: true, min: 1 },
-        messages: [{ type: Schema.Types.ObjectId, ref: "Message" }],
+        // messages: [{ type: Schema.Types.ObjectId, ref: "Message" }],
         membership_status: {
             type: String,
             enum: ["guest", "member", "admin"],

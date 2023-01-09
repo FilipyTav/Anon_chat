@@ -2,6 +2,7 @@ type MessageType = {
     author: string;
     content: string;
     replies: MessageType[];
+    _id: string;
 };
 
 type BoardType = {

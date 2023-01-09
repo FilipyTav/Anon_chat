@@ -1,20 +1,22 @@
-import { Request, Response, NextFunction } from "express";
 import async from "async";
+import { NextFunction, Request, Response } from "express";
 import {
     body,
-    ValidationError,
     Result,
+    ValidationError,
     validationResult,
 } from "express-validator";
-import mongoose, { CallbackError } from "mongoose";
+import mongoose, { Callback, CallbackError } from "mongoose";
 
 import Board from "../models/Board";
 import Message from "../models/Message";
+import User from "../models/User";
 
 // I've have been trying, for hours, to fix this,
 // but it does not work if i dont call Message here
-// problem in populate("messages")
+// problem in populate()
 Message;
+User;
 
 interface ResponseError extends Error {
     status?: number;
@@ -35,12 +37,21 @@ const board_detail = async (
 ): Promise<void> => {
     try {
         const { name } = req.params;
-        const board = await Board.find({ name }).populate("messages");
-        console.log(board);
+
+        // Gets the board and the messages, the most recent first
+        const board = await Board.find({ name }).populate({
+            path: "messages",
+            populate: {
+                path: "author",
+            },
+            options: { sort: { createAt: 1 } },
+        });
 
         if (board.length === 0) throw "No board was found";
 
-        res.status(200).json(board);
+        const selected = board[0];
+
+        res.status(200).json(selected);
     } catch (err) {
         console.log(err);
         res.status(404).json(err);

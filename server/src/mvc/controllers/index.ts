@@ -29,7 +29,7 @@ const menu = async (
         res.status(200).json(boards);
     } catch (err) {
         console.log(err);
-        res.status(400).json(err);
+        res.status(404).json(err);
     }
 };
 
