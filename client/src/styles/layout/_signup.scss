@@ -1,7 +1,7 @@
 @use "../helpers" as h;
 @use "sass:map";
 
-main.signin_form {
+main.signup_form {
     color: map.get(h.$boards_menu, "fg");
     // display: grid;
     // place-items: center;
@@ -57,10 +57,20 @@ main.signin_form {
             }
         }
     }
+
+    .errors {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        gap: 1em;
+
+        margin-top: 2em;
+    }
 }
 
 @media (min-width: 50em) {
-    main.signin_form {
+    main.signup_form {
         form {
             max-width: 60%;
 
