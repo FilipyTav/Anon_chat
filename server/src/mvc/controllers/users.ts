@@ -60,7 +60,7 @@ const create_post = [
         const user = new User({ username, password });
 
         if (!errors.isEmpty())
-            return res.status(400).json({ user, errors: errors.array() });
+            return res.status(400).json({ errors: errors.array() });
 
         try {
             // Data is valid, save user

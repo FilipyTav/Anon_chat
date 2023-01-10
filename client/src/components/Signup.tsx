@@ -2,7 +2,7 @@ import axios from "axios";
 import { ChangeEvent, FC, FormEvent, ReactElement, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-interface Props { }
+interface Props {}
 
 type UserType = {
     username: string;
@@ -49,7 +49,7 @@ const Signup: FC<Props> = (): ReactElement => {
         const validate_data = (obj: UserType): boolean => {
             const { username, password, confirm_password } = obj;
 
-            check_required(obj);
+            if (!check_required(obj)) return false;
 
             if (password !== confirm_password) {
                 err.push("Passwords don't match");
@@ -123,9 +123,9 @@ const Signup: FC<Props> = (): ReactElement => {
             </form>
 
             <section className="errors">
-                {errors.map((err: string) => {
+                {errors.map((err: string, index: number) => {
                     return (
-                        <p key={err} className="error">
+                        <p key={`${err}${index}`} className="error">
                             {err}
                         </p>
                     );
