@@ -31,8 +31,26 @@ main.signin_form {
                 padding: 0.2em 0.4em;
 
                 &:focus {
-                    box-shadow: inset 0 0 7px blue;
+                    box-shadow: inset 0 0 7px royalblue;
                 }
+            }
+        }
+
+        button[type="submit"] {
+            background-color: map.get(h.$navbar, "bg");
+            font-weight: bold;
+            cursor: pointer;
+
+            &:focus {
+                background: darken(map.get(h.$navbar, "bg"), 5%);
+            }
+        }
+
+        .already_signed {
+            align-self: end;
+
+            a {
+                color: cyan;
             }
         }
     }

@@ -1,4 +1,5 @@
 import { FC, ReactElement } from "react";
+import { Link } from "react-router-dom";
 
 interface Props {}
 
@@ -27,6 +28,14 @@ const Signup: FC<Props> = (): ReactElement => {
                         id="confirm_password"
                         name="confirm_password"
                     ></input>
+                </div>
+
+                <button type="submit" onClick={(e) => e.preventDefault()}>
+                    Sign up
+                </button>
+
+                <div className="already_signed">
+                    Already signed? <Link to={"/signin"}>Log in</Link>
                 </div>
             </form>
         </main>
