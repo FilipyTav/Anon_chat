@@ -1,3 +1,4 @@
+import axios from "axios";
 import { ChangeEvent, FC, FormEvent, ReactElement, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -24,7 +25,7 @@ const Signup: FC<Props> = (): ReactElement => {
         });
     };
 
-    const handle_submit = (event: FormEvent<HTMLFormElement>): void => {
+    const handle_submit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const err: string[] = [];
 
@@ -56,7 +57,18 @@ const Signup: FC<Props> = (): ReactElement => {
             return true;
         };
 
-        !validate_data(new_user) ? set_errors(err) : set_errors([]);
+        const is_data_ok = validate_data(new_user);
+
+        !is_data_ok ? set_errors(err) : set_errors([]);
+
+        if (!err.length) {
+            const result = await axios.post(
+                `http://localhost:3001/users/create`,
+                new_user
+            );
+
+            console.log(result);
+        }
     };
 
     return (

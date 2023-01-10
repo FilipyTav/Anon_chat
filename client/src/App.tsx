@@ -6,7 +6,7 @@ import "./styles/App.scss";
 import Boards from "./components/Boards_menu";
 import Navbar from "./components/Navbar";
 import Board from "./components/Board";
-import Signup from "./components/Sinup";
+import Signup from "./components/Signup";
 
 interface Props {}
 

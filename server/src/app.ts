@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 
 import index_router from "./routes/index";
 import board_router from "./routes/board";
+import users_router from "./routes/users";
 
 dotenv.config();
 
@@ -37,3 +38,4 @@ app.use(express.static(path.join(__dirname, "/../dist")));
 
 app.use("/", index_router);
 app.use("/board", board_router);
+app.use("/users", users_router);
