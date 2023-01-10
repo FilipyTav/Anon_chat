@@ -1,8 +1,8 @@
 import axios from "axios";
 import { ChangeEvent, FC, FormEvent, ReactElement, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-interface Props {}
+interface Props { }
 
 type UserType = {
     username: string;
@@ -13,6 +13,8 @@ type UserType = {
 const Signup: FC<Props> = (): ReactElement => {
     const [new_user, set_new_user] = useState<UserType>({} as UserType);
     const [errors, set_errors] = useState<string[]>([]);
+
+    const navigate = useNavigate();
 
     // Gets data and adds to state
     const handle_change = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -61,22 +63,19 @@ const Signup: FC<Props> = (): ReactElement => {
 
         !is_data_ok ? set_errors(err) : set_errors([]);
 
-        console.log("why");
-
-        console.log(!!err.length);
-
         try {
             if (!err.length) {
-                console.log("yes");
                 const result = await axios.post(
                     `http://localhost:3001/users/create`,
-                    new_user
+                    new_user,
                 );
 
-                console.log(result);
+                navigate("/boards");
             }
-        } catch (err) {
-            console.log(err);
+        } catch (error: any) {
+            const { data } = error.response;
+
+            set_errors(data.errors);
         }
     };
 
