@@ -6,6 +6,7 @@ import "./styles/App.scss";
 import Boards from "./components/Boards_menu";
 import Navbar from "./components/Navbar";
 import Board from "./components/Board";
+import Signup from "./components/Sinup";
 
 interface Props {}
 
@@ -20,6 +21,8 @@ const App: FC<Props> = (): ReactElement => {
                 <Route path="/boards" element={<Boards />} />
 
                 <Route path="/board/:name" element={<Board />} />
+
+                <Route path="/signup" element={<Signup />} />
             </Routes>
         </BrowserRouter>
     );

@@ -1,0 +1,39 @@
+@use "../helpers" as h;
+@use "sass:map";
+
+main.signin_form {
+    color: map.get(h.$boards_menu, "fg");
+    // display: grid;
+    // place-items: center;
+
+    padding: 2em 1em;
+
+    form {
+        background-color: map.get(h.$boards_menu, "msgs_bg");
+        width: 90%;
+        margin: auto auto;
+        padding: 2em 1em;
+        border-radius: 0.6em;
+
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 2em;
+
+        .field {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            input {
+                border: none;
+                border-radius: 0.3em;
+                outline: none;
+                padding: 0.2em 0.4em;
+
+                &:focus {
+                    box-shadow: inset 0 0 7px blue;
+                }
+            }
+        }
+    }
+}

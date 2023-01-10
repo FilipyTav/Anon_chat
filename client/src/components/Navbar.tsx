@@ -24,15 +24,15 @@ const Navbar: FC<Props> = (): ReactElement => {
 
             <ul className={`links ${active ? "active" : ""}`}>
                 <li>
-                    <a href="#">Sign in</a>
+                    <Link to={"/signin"}>Sign in</Link>
                 </li>
 
                 <li>
-                    <a href="#">Sign up</a>
+                    <Link to={"/signup"}>Sign Up</Link>
                 </li>
 
                 <li>
-                    <a href="#">Membership</a>
+                    <Link to={"/membership"}>Membership</Link>
                 </li>
             </ul>
         </nav>
