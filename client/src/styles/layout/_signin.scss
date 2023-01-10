@@ -7,11 +7,12 @@ main.signin_form {
     // place-items: center;
 
     padding: 2em 1em;
+    min-width: 100vw;
 
     form {
         background-color: map.get(h.$boards_menu, "msgs_bg");
-        width: 90%;
-        margin: auto auto;
+        max-width: 90%;
+        margin: 0 auto;
         padding: 2em 1em;
         border-radius: 0.6em;
 
@@ -29,6 +30,8 @@ main.signin_form {
                 border-radius: 0.3em;
                 outline: none;
                 padding: 0.2em 0.4em;
+
+                max-width: 50%;
 
                 &:focus {
                     box-shadow: inset 0 0 7px royalblue;
@@ -51,6 +54,20 @@ main.signin_form {
 
             a {
                 color: cyan;
+            }
+        }
+    }
+}
+
+@media (min-width: 50em) {
+    main.signin_form {
+        form {
+            max-width: 60%;
+
+            .field {
+                input {
+                    max-width: 50%;
+                }
             }
         }
     }
