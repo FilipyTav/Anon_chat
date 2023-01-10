@@ -29,7 +29,7 @@ const Signup: FC<Props> = (): ReactElement => {
         const err: string[] = [];
 
         const check_required = (obj: UserType): boolean => {
-            for (const [key, value] of Object.entries(new_user)) {
+            for (const [key, value] of Object.entries(obj)) {
                 if (!value.trim()) err.push(`No ${key}`);
 
                 set_new_user((prev_state) => {
@@ -43,9 +43,20 @@ const Signup: FC<Props> = (): ReactElement => {
             return !err.length;
         };
 
-        const { username, password, confirm_password } = new_user;
+        const validate_data = (obj: UserType): boolean => {
+            const { username, password, confirm_password } = obj;
 
-        !check_required(new_user) ? set_errors(err) : set_errors([]);
+            check_required(obj);
+
+            if (password !== confirm_password) {
+                err.push("Passwords don't match");
+                return false;
+            }
+
+            return true;
+        };
+
+        !validate_data(new_user) ? set_errors(err) : set_errors([]);
     };
 
     return (
