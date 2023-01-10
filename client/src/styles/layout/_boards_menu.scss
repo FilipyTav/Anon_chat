@@ -51,7 +51,7 @@ main.boards {
             min-height: 30vh;
 
             .messages {
-                transform: translate(0, 30%);
+                transform: translate(0, 3em);
                 padding: 0.3em 0.5em 0 0.5em;
             }
         }
@@ -76,7 +76,7 @@ main.boards {
 
             position: absolute;
             top: 0;
-            transform: translate(0, 100%);
+            transform: translate(0, 10em);
             transition: transform 1s ease, padding 1s ease;
             padding: 0;
 

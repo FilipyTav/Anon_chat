@@ -26,6 +26,7 @@ const menu = async (
     try {
         const boards = await Board.find().populate({
             path: "messages",
+            options: { limit: 5, sort: { createAt: 1 } },
             populate: { path: "author" },
         });
 
