@@ -49,6 +49,11 @@ const create_post = [
 
         const { username, password, confirm_password } = req.body;
 
+        const db_user = await User.find({ username });
+
+        if (db_user.length > 0)
+            return res.status(400).json({ errors: ["Username already taken"] });
+
         // TODO: hash passwords
 
         // Create new user obj with the validated and sanitized values

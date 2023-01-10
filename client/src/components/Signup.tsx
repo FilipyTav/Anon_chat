@@ -61,13 +61,22 @@ const Signup: FC<Props> = (): ReactElement => {
 
         !is_data_ok ? set_errors(err) : set_errors([]);
 
-        if (!err.length) {
-            const result = await axios.post(
-                `http://localhost:3001/users/create`,
-                new_user
-            );
+        console.log("why");
 
-            console.log(result);
+        console.log(!!err.length);
+
+        try {
+            if (!err.length) {
+                console.log("yes");
+                const result = await axios.post(
+                    `http://localhost:3001/users/create`,
+                    new_user
+                );
+
+                console.log(result);
+            }
+        } catch (err) {
+            console.log(err);
         }
     };
 
