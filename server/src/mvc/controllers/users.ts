@@ -1,12 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import async from "async";
 import {
     body,
     ValidationError,
     Result,
     validationResult,
 } from "express-validator";
-import mongoose, { CallbackError } from "mongoose";
+import passport from "passport";
 
 import User from "../models/User";
 
@@ -73,4 +72,12 @@ const create_post = [
         }
     },
 ];
-export { index, create_post };
+
+const login_post = (req: Request, res: Response, next: NextFunction) => {
+    passport.authenticate("local", {
+        successRedirect: "/",
+        failureRedirect: "/",
+    });
+};
+
+export { index, create_post, login_post };
