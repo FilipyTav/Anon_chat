@@ -73,11 +73,9 @@ const create_post = [
     },
 ];
 
-const login_post = (req: Request, res: Response, next: NextFunction) => {
-    passport.authenticate("local", {
-        successRedirect: "/",
-        failureRedirect: "/",
-    });
-};
+const login_post = passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/",
+});
 
 export { index, create_post, login_post };

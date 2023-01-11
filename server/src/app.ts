@@ -2,9 +2,15 @@ import express, { Application } from "express";
 import path from "path";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import session from "express-session";
-import passport from "passport";
-import { Strategy as LocalStrategy } from "passport-local";
+
+// import session from "express-session";
+// import passport from "passport";
+// import { Strategy as LocalStrategy } from "passport-local";
+// const LocalStrategy = require("passport-local").Strategy;
+
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 
 import index_router from "./routes/index";
 import board_router from "./routes/board";
@@ -31,6 +37,41 @@ app.use(
 // Parses json
 app.use(express.json());
 
+passport.use(
+    new LocalStrategy(
+        async (username: string, password: string, done: Function) => {
+            try {
+                const user = await User.findOne({ username });
+
+                if (!user) {
+                    return done(null, false, { message: "Incorrect username" });
+                }
+
+                if (user.password !== password) {
+                    return done(null, false, { message: "Incorrect password" });
+                }
+
+                return done(null, user);
+            } catch (err) {
+                return done(err);
+            }
+        }
+    )
+);
+
+passport.serializeUser(function (user: any, done: Function) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(async (id: any, done: Function) => {
+    try {
+        const user = await User.findById(id);
+        done(null, user);
+    } catch (err) {
+        done(err);
+    }
+});
+
 app.use(
     session({
         secret: process.env.SESSION_SECRET || "",
@@ -38,37 +79,6 @@ app.use(
         saveUninitialized: true,
     })
 );
-
-passport.use(
-    new LocalStrategy(async (username: string, password: string, done) => {
-        try {
-            const user: UserInterface | null = await User.findOne({ username });
-
-            if (!user) {
-                return done(null, false, { message: "Incorrect username" });
-            }
-
-            if (user.password !== password) {
-                return done(null, false, { message: "Incorrect password" });
-            }
-            return done(null, user);
-        } catch (err) {
-            return done(err);
-        }
-    })
-);
-
-passport.serializeUser((user: any, done) => done(null, user.id));
-
-passport.deserializeUser(async (id, done) => {
-    try {
-        const user: UserInterface | null = await User.findById(id);
-        done(null, user);
-    } catch (err) {
-        done(err);
-    }
-});
-
 app.use(passport.initialize());
 app.use(passport.session());
 
