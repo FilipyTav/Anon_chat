@@ -73,9 +73,45 @@ const create_post = [
     },
 ];
 
-const login_post = passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/",
-});
+// const login_post = passport.authenticate("local", {
+//     successRedirect: "/",
+//     failureRedirect: "/",
+// });
+
+const login_post = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    passport.authenticate("local", function (err, user, info) {
+        if (err) return next(err); // will generate a 500 error
+
+        const messages: string[] = [];
+
+        if (info) messages.push(info.message);
+
+        // Generate a JSON response reflecting authentication status
+        if (messages.length)
+            return res.status(401).json({
+                success: false,
+                errors: messages,
+            });
+
+        // ***********************************************************************
+        // "Note that when using a custom callback, it becomes the application's
+        // responsibility to establish a session (by calling req.login()) and send
+        // a response."
+        // Source: http://passportjs.org/docs
+        // ***********************************************************************
+        req.login(user, (login_err: Error) => {
+            if (login_err) return next(login_err);
+
+            return res.status(200).json({
+                success: true,
+                message: "Authentication succeeded",
+            });
+        });
+    })(req, res, next);
+};
 
 export { index, create_post, login_post };
