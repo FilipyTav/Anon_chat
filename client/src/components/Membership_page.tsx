@@ -18,8 +18,9 @@ const Membership: FC<Props> = ({ user }): ReactElement => {
     const handle_submit = async (): Promise<void> => {
         try {
             const result = await axios.post(
-                "http://localhost:3001/user",
-                secret
+                "http://localhost:3001/user/change_membership",
+                { secret },
+                { withCredentials: true }
             );
         } catch (err) {
             console.log(err);
@@ -30,12 +31,7 @@ const Membership: FC<Props> = ({ user }): ReactElement => {
         <main className="membership">
             {user ? (
                 <>
-                    <p
-                        className="anouncing"
-                        onClick={() => console.log(secret)}
-                    >
-                        Membership status:
-                    </p>
+                    <p className="anouncing">Membership status:</p>
 
                     <div className="status">
                         {`${user.membership_status
