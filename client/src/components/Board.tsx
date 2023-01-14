@@ -47,7 +47,14 @@ const Board: FC<Props> = ({ user }): ReactElement => {
                                 {user ? (
                                     <>
                                         <p className="post_author">
-                                            {msg.author.username}
+                                            {user.username ===
+                                            msg.author.username ? (
+                                                <span className="you">
+                                                    {msg.author.username}
+                                                </span>
+                                            ) : (
+                                                msg.author.username
+                                            )}
                                         </p>
 
                                         <p className="post_date">{date}</p>

@@ -31,6 +31,10 @@ main.board {
                 .post_author {
                     text-align: center;
                     font-weight: bold;
+
+                    .you {
+                        color: map.get(h.$board_page, "user_msg");
+                    }
                 }
 
                 .post_date {

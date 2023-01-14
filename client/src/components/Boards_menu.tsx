@@ -59,9 +59,18 @@ const Boards: FC<Props> = ({ user }): ReactElement => {
                                 return (
                                     <div className="message" key={msg._id}>
                                         <h2 className="author">
-                                            {user
-                                                ? msg.author.username
-                                                : "Anonymous"}
+                                            {user ? (
+                                                user.username ===
+                                                msg.author.username ? (
+                                                    <span className="you">
+                                                        {msg.author.username}
+                                                    </span>
+                                                ) : (
+                                                    msg.author.username
+                                                )
+                                            ) : (
+                                                "Anonymous"
+                                            )}
                                         </h2>
                                         <p className="content">{msg.content}</p>
                                     </div>

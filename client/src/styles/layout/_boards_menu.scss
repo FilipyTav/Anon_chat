@@ -92,6 +92,10 @@ main.boards {
 
             .author {
                 text-align: center;
+
+                .you {
+                    color: map.get(h.$board_page, "user_msg");
+                }
             }
         }
     }

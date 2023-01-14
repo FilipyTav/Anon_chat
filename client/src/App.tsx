@@ -9,7 +9,7 @@ import Boards from "./components/Boards_menu";
 import Navbar from "./components/Navbar";
 import Signin from "./components/Signin";
 import Signup from "./components/Signup";
-import { UserType } from "./helpers/types";
+import { MessageType, UserType } from "./helpers/types";
 
 interface Props {}
 
