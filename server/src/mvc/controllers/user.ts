@@ -39,14 +39,18 @@ const change_membership = [
         // dunno how to fix it
         const user: any = req.user;
 
+        console.log({ user });
+
         try {
             // Property '_id' does not exist on type '(Document<unknown, any, UserInterface> &
             // UserInterface & { _id: ObjectId; })[]'
             const result: any = await User.find({ username: user?.username });
 
-            const { _id } = result;
+            const { _id } = result[0];
 
-            let status = "";
+            let status: string = result[0].membership_status;
+
+            console.log({ status });
 
             switch (secret) {
                 case "fsitbpe":
