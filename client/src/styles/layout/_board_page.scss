@@ -25,10 +25,24 @@ main.board {
             flex-flow: column nowrap;
             gap: 0.5em;
 
+            position: relative;
+
             .details {
                 .post_author {
                     text-align: center;
                     font-weight: bold;
+                }
+
+                .post_date {
+                    position: absolute;
+                    top: 0;
+                    left: 2%;
+                }
+
+                .post_time {
+                    position: absolute;
+                    top: 0;
+                    right: 2%;
                 }
             }
 

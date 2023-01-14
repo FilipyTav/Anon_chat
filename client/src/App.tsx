@@ -35,9 +35,9 @@ const App: FC<Props> = (): ReactElement => {
             <Routes>
                 <Route path="/" element={<Navigate to="/boards" />} />
 
-                <Route path="/boards" element={<Boards />} />
+                <Route path="/boards" element={<Boards user={user} />} />
 
-                <Route path="/board/:name" element={<Board />} />
+                <Route path="/board/:name" element={<Board user={user} />} />
 
                 <Route path="/signup" element={<Signup />} />
 

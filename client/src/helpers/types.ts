@@ -3,6 +3,7 @@ type MessageType = {
     content: string;
     replies: MessageType[];
     _id: string;
+    createdAt: string;
 };
 
 type BoardType = {

@@ -2,11 +2,13 @@ import axios from "axios";
 import { FC, ReactElement, MouseEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { BoardType } from "../helpers/types";
+import { BoardType, UserType } from "../helpers/types";
 
-interface Props {}
+interface Props {
+    user: UserType | null;
+}
 
-const Boards: FC<Props> = (): ReactElement => {
+const Boards: FC<Props> = ({ user }): ReactElement => {
     const [boards, set_boards] = useState<BoardType[]>([]);
 
     const get_boards = async () => {
@@ -57,7 +59,9 @@ const Boards: FC<Props> = (): ReactElement => {
                                 return (
                                     <div className="message" key={msg._id}>
                                         <h2 className="author">
-                                            {msg.author.username}
+                                            {user
+                                                ? msg.author.username
+                                                : "Anonymous"}
                                         </h2>
                                         <p className="content">{msg.content}</p>
                                     </div>
