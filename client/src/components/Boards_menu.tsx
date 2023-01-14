@@ -10,7 +10,10 @@ const Boards: FC<Props> = (): ReactElement => {
     const [boards, set_boards] = useState<BoardType[]>([]);
 
     const get_boards = async () => {
-        const result = await axios.get("http://localhost:3001/");
+        const result = await axios.get("http://localhost:3001/", {
+            withCredentials: true,
+        });
+
         set_boards(result.data);
     };
 

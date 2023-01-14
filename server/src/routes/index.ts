@@ -8,4 +8,6 @@ router.get("/", index_controller.index);
 
 router.get("/boards", index_controller.menu);
 
+router.get("/get_user", index_controller.get_user);
+
 export default router;

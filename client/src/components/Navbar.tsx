@@ -1,10 +1,30 @@
+import axios from "axios";
 import { FC, ReactElement, useState } from "react";
 import { Link } from "react-router-dom";
+import { UserType } from "../helpers/types";
 
-interface Props {}
+interface Props {
+    user: UserType | null;
+    get_user: () => void;
+}
 
-const Navbar: FC<Props> = (): ReactElement => {
+const Navbar: FC<Props> = ({ user, get_user }): ReactElement => {
     const [active, set_active] = useState<boolean>(false);
+
+    const logout = async (): Promise<void> => {
+        try {
+            const result = await axios.get(
+                "http://localhost:3001/users/logout",
+                {
+                    withCredentials: true,
+                }
+            );
+
+            get_user();
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     return (
         <nav>
@@ -23,13 +43,25 @@ const Navbar: FC<Props> = (): ReactElement => {
             </div>
 
             <ul className={`links ${active ? "active" : ""}`}>
-                <li>
-                    <Link to={"/signin"}>Sign in</Link>
-                </li>
+                {user ? (
+                    <>
+                        <li>
+                            <Link to={"/"} onClick={logout}>
+                                Log out
+                            </Link>
+                        </li>
+                    </>
+                ) : (
+                    <>
+                        <li>
+                            <Link to={"/signin"}>Sign in</Link>
+                        </li>
 
-                <li>
-                    <Link to={"/signup"}>Sign Up</Link>
-                </li>
+                        <li>
+                            <Link to={"/signup"}>Sign Up</Link>
+                        </li>
+                    </>
+                )}
 
                 <li>
                     <Link to={"/membership"}>Membership</Link>

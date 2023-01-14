@@ -10,4 +10,6 @@ router.post("/create", users_controller.create_post);
 
 router.post("/login", users_controller.login_post);
 
+router.get("/logout", users_controller.logout_get);
+
 export default router;

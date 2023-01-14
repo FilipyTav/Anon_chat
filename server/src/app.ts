@@ -3,19 +3,15 @@ import path from "path";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
-// import session from "express-session";
-// import passport from "passport";
-// import { Strategy as LocalStrategy } from "passport-local";
-// const LocalStrategy = require("passport-local").Strategy;
-
-const session = require("express-session");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
+import session from "express-session";
+import passport from "passport";
+import { Strategy as LocalStrategy } from "passport-local";
+import cors from "cors";
 
 import index_router from "./routes/index";
 import board_router from "./routes/board";
 import users_router from "./routes/users";
-import User, { UserInterface } from "./mvc/models/User";
+import User from "./mvc/models/User";
 
 dotenv.config();
 
@@ -26,6 +22,10 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 const app: Application = express();
+
+const port: Number = Number(process.env.PORT) || 6001;
+
+app.use(cors({ origin: `http://localhost:${port}`, credentials: true }));
 
 // Allows access to form content
 app.use(
@@ -63,10 +63,15 @@ passport.serializeUser(function (user: any, done: Function) {
     done(null, user.id);
 });
 
-passport.deserializeUser(async (id: any, done: Function) => {
+passport.deserializeUser(async (id: string, done: Function) => {
     try {
         const user = await User.findById(id);
-        done(null, user);
+
+        const user_information = {
+            username: user?.username,
+        };
+
+        done(null, user_information);
     } catch (err) {
         done(err);
     }
@@ -81,8 +86,6 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-
-const port: Number = Number(process.env.PORT) || 6001;
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

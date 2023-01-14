@@ -16,4 +16,4 @@ type UserType = {
     username: string;
 };
 
-export type { MessageType, BoardType };
+export type { MessageType, BoardType, UserType };

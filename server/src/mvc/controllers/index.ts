@@ -37,4 +37,8 @@ const menu = async (
     }
 };
 
-export { index, menu };
+const get_user = (req: Request, res: Response, next: NextFunction) => {
+    return res.status(200).json(req.user);
+};
+
+export { index, menu, get_user };

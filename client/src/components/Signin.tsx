@@ -2,14 +2,16 @@ import axios from "axios";
 import { ChangeEvent, FC, FormEvent, ReactElement, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-interface Props {}
+interface Props {
+    get_user: () => void;
+}
 
 type UserType = {
     username: string;
     password: string;
 };
 
-const Signin: FC<Props> = (): ReactElement => {
+const Signin: FC<Props> = ({ get_user }): ReactElement => {
     const [user, set_user] = useState<UserType>({} as UserType);
     const [errors, set_errors] = useState<string[]>([]);
 
@@ -61,8 +63,11 @@ const Signin: FC<Props> = (): ReactElement => {
             if (!err.length) {
                 const result = await axios.post(
                     `http://localhost:3001/users/login`,
-                    user
+                    user,
+                    { withCredentials: true }
                 );
+
+                get_user();
 
                 navigate("/boards");
             }

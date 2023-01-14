@@ -114,4 +114,14 @@ const login_post = async (
     })(req, res, next);
 };
 
-export { index, create_post, login_post };
+const logout_get = (req: Request, res: Response, next: NextFunction): void => {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+
+        res.redirect("/");
+    });
+};
+
+export { index, create_post, login_post, logout_get };
