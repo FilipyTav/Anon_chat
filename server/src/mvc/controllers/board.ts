@@ -1,12 +1,4 @@
-import async from "async";
 import { NextFunction, Request, Response } from "express";
-import {
-    body,
-    Result,
-    ValidationError,
-    validationResult,
-} from "express-validator";
-import mongoose, { Callback, CallbackError } from "mongoose";
 
 import Board from "../models/Board";
 import Message from "../models/Message";
@@ -58,4 +50,12 @@ const board_detail = async (
     }
 };
 
-export { index, board_detail };
+const create_message = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    res.status(404);
+};
+
+export { index, board_detail, create_message };

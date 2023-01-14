@@ -49,7 +49,7 @@ const change_membership = [
             let status: string = result[0].membership_status;
 
             switch (secret) {
-                case "ilmlpatiopid":
+                case "ilmlpaimtopid":
                     status = "guest";
                     break;
 

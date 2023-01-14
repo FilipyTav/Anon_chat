@@ -12,6 +12,33 @@ main.board {
     width: 90%;
     margin: 0 auto;
 
+    .new_post {
+        background-color: map.get(h.$boards_menu, "msg_bg");
+        padding: 1em 2em;
+
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        gap: 2em;
+
+        label {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        textarea#comment {
+            resize: none;
+            outline: none;
+            padding: 0.3em 0.5em;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button[type="submit"] {
+            cursor: pointer;
+        }
+    }
+
     .posts {
         display: flex;
         flex-flow: column nowrap;

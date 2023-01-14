@@ -6,4 +6,6 @@ const router: Router = express.Router();
 
 router.get("/:name", board_controller.board_detail);
 
+router.post("/messages/create", board_controller.create_message);
+
 export default router;
