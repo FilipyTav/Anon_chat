@@ -11,6 +11,8 @@ import cors from "cors";
 import index_router from "./routes/index";
 import board_router from "./routes/board";
 import users_router from "./routes/users";
+import user_router from "./routes/user";
+
 import User from "./mvc/models/User";
 
 dotenv.config();
@@ -69,6 +71,7 @@ passport.deserializeUser(async (id: string, done: Function) => {
 
         const user_information = {
             username: user?.username,
+            membership_status: user?.membership_status,
         };
 
         done(null, user_information);
@@ -96,4 +99,5 @@ app.use(express.static(path.join(__dirname, "/../dist")));
 
 app.use("/", index_router);
 app.use("/board", board_router);
+app.use("/user", user_router);
 app.use("/users", users_router);

@@ -1,0 +1,49 @@
+@use "../helpers" as h;
+@use "sass:map";
+
+main.membership {
+    color: map.get(h.$boards_menu, "fg");
+
+    background-color: map.get(h.$boards_menu, "msgs_bg");
+    min-width: 70%;
+    margin: auto auto;
+    padding: 2em 1em;
+    border-radius: 0.6em;
+
+    text-align: center;
+
+    max-height: 70%;
+
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 2em;
+
+    .anouncing {
+        font-weight: bold;
+        font-size: 1.3em;
+    }
+
+    .status {
+        background-color: map.get(h.$navbar, "bg");
+        margin: 0 -1em;
+
+        padding: 2em 1em;
+        font-size: 2em;
+    }
+
+    .input_n_button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5em;
+
+        button {
+            background-color: map.get(h.$navbar, "bg");
+            cursor: pointer;
+        }
+    }
+
+    #secret {
+        padding: 0.2em 0.4em;
+    }
+}

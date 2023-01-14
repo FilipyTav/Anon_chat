@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FC, ReactElement, useEffect, useState } from "react";
+import { FC, ReactElement, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import "./styles/App.scss";
@@ -9,7 +9,8 @@ import Boards from "./components/Boards_menu";
 import Navbar from "./components/Navbar";
 import Signin from "./components/Signin";
 import Signup from "./components/Signup";
-import { MessageType, UserType } from "./helpers/types";
+import { UserType } from "./helpers/types";
+import Membership from "./components/Membership_page";
 
 interface Props {}
 
@@ -44,6 +45,11 @@ const App: FC<Props> = (): ReactElement => {
                 <Route
                     path="/signin"
                     element={<Signin get_user={get_user} />}
+                />
+
+                <Route
+                    path="/membership"
+                    element={<Membership user={user} />}
                 />
             </Routes>
         </BrowserRouter>

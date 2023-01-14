@@ -15,6 +15,7 @@ type BoardType = {
 
 type UserType = {
     username: string;
+    membership_status: "guest" | "member" | "admin";
 };
 
 export type { MessageType, BoardType, UserType };
