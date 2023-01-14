@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FC, ReactElement, useState } from "react";
+import { FC, ReactElement, useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import "./styles/App.scss";
@@ -12,7 +12,7 @@ import Signup from "./components/Signup";
 import { UserType } from "./helpers/types";
 import Membership from "./components/Membership_page";
 
-interface Props {}
+interface Props { }
 
 const App: FC<Props> = (): ReactElement => {
     const [user, set_user] = useState<UserType | null>(null);
@@ -28,6 +28,10 @@ const App: FC<Props> = (): ReactElement => {
             console.log(err);
         }
     };
+
+    useEffect(() => {
+        get_user()
+    }, [])
 
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
