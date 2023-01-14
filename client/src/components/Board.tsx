@@ -28,6 +28,24 @@ const Board: FC<Props> = ({ user }): ReactElement => {
         get_board_data();
     }, []);
 
+    const render_author_name = (msg: MessageType): ReactElement => {
+        if (user) {
+            switch (true) {
+                case user.username === msg.author.username:
+                    return <span className="you">{msg.author.username}</span>;
+
+                case user.username !== msg.author.username &&
+                    user.membership_status !== "guest":
+                    return <>{msg.author.username}</>;
+
+                default:
+                    return <>Anonymous</>;
+            }
+        }
+
+        return <>Anonymous</>;
+    };
+
     return (
         <main className="board">
             <h1 className="board_name">{`${board_data.name
@@ -47,18 +65,21 @@ const Board: FC<Props> = ({ user }): ReactElement => {
                                 {user ? (
                                     <>
                                         <p className="post_author">
-                                            {user.username ===
-                                            msg.author.username ? (
-                                                <span className="you">
-                                                    {msg.author.username}
-                                                </span>
-                                            ) : (
-                                                msg.author.username
-                                            )}
+                                            {render_author_name(msg)}
                                         </p>
 
-                                        <p className="post_date">{date}</p>
-                                        <p className="post_time">{time}</p>
+                                        {user.membership_status !== "guest" ? (
+                                            <>
+                                                <p className="post_date">
+                                                    {date}
+                                                </p>
+                                                <p className="post_time">
+                                                    {time}
+                                                </p>
+                                            </>
+                                        ) : (
+                                            <></>
+                                        )}
                                     </>
                                 ) : (
                                     <p className="post_author">Anonymous</p>

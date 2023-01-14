@@ -39,8 +39,6 @@ const change_membership = [
         // dunno how to fix it
         const user: any = req.user;
 
-        console.log({ user });
-
         try {
             // Property '_id' does not exist on type '(Document<unknown, any, UserInterface> &
             // UserInterface & { _id: ObjectId; })[]'
@@ -50,9 +48,11 @@ const change_membership = [
 
             let status: string = result[0].membership_status;
 
-            console.log({ status });
-
             switch (secret) {
+                case "ilmlpatiopid":
+                    status = "guest";
+                    break;
+
                 case "fsitbpe":
                     status = "member";
                     break;

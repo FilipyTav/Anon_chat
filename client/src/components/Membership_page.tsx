@@ -4,9 +4,10 @@ import { UserType } from "../helpers/types";
 
 interface Props {
     user: UserType | null;
+    get_user: () => void;
 }
 
-const Membership: FC<Props> = ({ user }): ReactElement => {
+const Membership: FC<Props> = ({ user, get_user }): ReactElement => {
     const [secret, set_secret] = useState<string>("");
 
     const handle_change = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -22,6 +23,8 @@ const Membership: FC<Props> = ({ user }): ReactElement => {
                 { secret },
                 { withCredentials: true }
             );
+
+            get_user();
         } catch (err) {
             console.log(err);
         }

@@ -2,7 +2,7 @@ import axios from "axios";
 import { FC, ReactElement, MouseEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { BoardType, UserType } from "../helpers/types";
+import { BoardType, MessageType, UserType } from "../helpers/types";
 
 interface Props {
     user: UserType | null;
@@ -36,6 +36,24 @@ const Boards: FC<Props> = ({ user }): ReactElement => {
             target.closest(`.${target_class}`)?.classList.toggle("active");
     };
 
+    const render_author_name = (msg: MessageType): ReactElement => {
+        if (user) {
+            switch (true) {
+                case user.username === msg.author.username:
+                    return <span className="you">{msg.author.username}</span>;
+
+                case user.username !== msg.author.username &&
+                    user.membership_status !== "guest":
+                    return <>{msg.author.username}</>;
+
+                default:
+                    return <>Anonymous</>;
+            }
+        }
+
+        return <>Anonymous</>;
+    };
+
     return (
         <main className="boards">
             {boards.map((board: BoardType) => {
@@ -59,18 +77,7 @@ const Boards: FC<Props> = ({ user }): ReactElement => {
                                 return (
                                     <div className="message" key={msg._id}>
                                         <h2 className="author">
-                                            {user ? (
-                                                user.username ===
-                                                msg.author.username ? (
-                                                    <span className="you">
-                                                        {msg.author.username}
-                                                    </span>
-                                                ) : (
-                                                    msg.author.username
-                                                )
-                                            ) : (
-                                                "Anonymous"
-                                            )}
+                                            {render_author_name(msg)}
                                         </h2>
                                         <p className="content">{msg.content}</p>
                                     </div>

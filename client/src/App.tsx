@@ -12,7 +12,7 @@ import Signup from "./components/Signup";
 import { UserType } from "./helpers/types";
 import Membership from "./components/Membership_page";
 
-interface Props { }
+interface Props {}
 
 const App: FC<Props> = (): ReactElement => {
     const [user, set_user] = useState<UserType | null>(null);
@@ -30,8 +30,8 @@ const App: FC<Props> = (): ReactElement => {
     };
 
     useEffect(() => {
-        get_user()
-    }, [])
+        get_user();
+    }, []);
 
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -53,7 +53,7 @@ const App: FC<Props> = (): ReactElement => {
 
                 <Route
                     path="/membership"
-                    element={<Membership user={user} />}
+                    element={<Membership user={user} get_user={get_user} />}
                 />
             </Routes>
         </BrowserRouter>
