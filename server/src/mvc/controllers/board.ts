@@ -61,8 +61,9 @@ const create_message = [
     // Validates and sanitize fieldsj
     body("new_comment", "Comment must not be empty")
         .trim()
-        .isLength({ min: 1 })
-        .escape(),
+        .isLength({ min: 1 }),
+    // Not escaping becuase it will be as text in the client
+    // .escape(),
 
     // Processes request
     async (
@@ -76,6 +77,8 @@ const create_message = [
             return res.status(400).json({ errors: errors.array() });
 
         const { new_comment } = req.body;
+
+        console.log(new_comment);
 
         const user: any = req.user;
 
