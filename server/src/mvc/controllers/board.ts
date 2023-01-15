@@ -75,16 +75,18 @@ const create_message = [
         if (!errors.isEmpty())
             return res.status(400).json({ errors: errors.array() });
 
+        console.log(req.body)
+
         const { new_comment } = req.body;
 
         const user: any = req.user;
 
         try {
             const results: any = await async.parallel({
-                user: function (callback) {
+                user: function(callback) {
                     User.find({ username: user.username }).exec(callback);
                 },
-                board: function (callback) {
+                board: function(callback) {
                     Board.find({ name: req.params.name }).exec(callback);
                 },
             });

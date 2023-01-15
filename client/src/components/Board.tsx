@@ -3,7 +3,6 @@ import {
     ChangeEvent,
     FC,
     FormEvent,
-    MutableRefObject,
     ReactElement,
     useEffect,
     useRef,
@@ -21,6 +20,7 @@ const Board: FC<Props> = ({ user }): ReactElement => {
     const { name } = useParams();
 
     const text = useRef<HTMLTextAreaElement | null>(null);
+    const msg_id = useRef<HTMLInputElement | null>(null);
 
     const [board_data, set_board_data] = useState<BoardType>({
         name: "",
@@ -69,7 +69,7 @@ const Board: FC<Props> = ({ user }): ReactElement => {
         try {
             const result = await axios.post(
                 `http://localhost:3001/board/${name}/messages/create`,
-                { new_comment },
+                { new_comment, id: msg_id.current?.value },
                 { withCredentials: true }
             );
 
@@ -129,14 +129,15 @@ const Board: FC<Props> = ({ user }): ReactElement => {
                                         </p>
 
                                         {user.membership_status !== "guest" ? (
-                                            <>
-                                                <p className="post_date">
-                                                    {date}
-                                                </p>
+                                            <div className="date_time">
                                                 <p className="post_time">
                                                     {time}
                                                 </p>
-                                            </>
+
+                                                <p className="post_date">
+                                                    {date}
+                                                </p>
+                                            </div>
                                         ) : (
                                             <></>
                                         )}
@@ -147,6 +148,20 @@ const Board: FC<Props> = ({ user }): ReactElement => {
                             </div>
 
                             <p className="post_content">{msg.content}</p>
+
+                            {user && user.membership_status === "admin" ? (
+                                <button className="delete_msg">Delete</button>
+                            ) : (
+                                <></>
+                            )}
+
+                            <input
+                                type="text"
+                                disabled={true}
+                                value={msg._id}
+                                style={{ display: "none" }}
+                                ref={msg_id}
+                            />
                         </div>
                     );
                 })}

@@ -49,15 +49,15 @@ const change_membership = [
             let status: string = result[0].membership_status;
 
             switch (secret) {
-                case "ilmlpaimtopid":
+                case process.env.GUEST_CODE:
                     status = "guest";
                     break;
 
-                case "fsitbpe":
+                case process.env.MEMBER_CODE:
                     status = "member";
                     break;
 
-                case "irrlhattatb":
+                case process.env.ADMIN_CODE:
                     status = "admin";
                     break;
 

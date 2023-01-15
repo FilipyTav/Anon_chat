@@ -64,22 +64,30 @@ main.board {
                     }
                 }
 
-                .post_date {
-                    position: absolute;
-                    top: 0;
-                    left: 2%;
-                }
+                .date_time {
+                    display: flex;
+                    gap: 2em;
 
-                .post_time {
                     position: absolute;
                     top: 0;
-                    right: 2%;
                 }
             }
 
             .post_content {
                 padding: 0.5em 0.8em;
                 background-color: map.get(h.$boards_menu, "msgs_bg");
+            }
+
+            .delete_msg {
+                position: absolute;
+                top: 0;
+                right: 0;
+
+                padding: 0.3em 1em;
+                background-color: #ff0000;
+                color: #ffffff;
+
+                cursor: pointer;
             }
 
             &:last-child {
