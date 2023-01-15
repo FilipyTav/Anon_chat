@@ -100,6 +100,8 @@ const Board: FC<Props> = ({ user }): ReactElement => {
         await axios.post(
             `http://localhost:3001/board/${name}/messages/${id}/delete`
         );
+
+        get_board_data();
     };
 
     return (

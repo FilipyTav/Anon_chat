@@ -75,18 +75,16 @@ const create_message = [
         if (!errors.isEmpty())
             return res.status(400).json({ errors: errors.array() });
 
-        console.log(req.body)
-
         const { new_comment } = req.body;
 
         const user: any = req.user;
 
         try {
             const results: any = await async.parallel({
-                user: function(callback) {
+                user: function (callback) {
                     User.find({ username: user.username }).exec(callback);
                 },
-                board: function(callback) {
+                board: function (callback) {
                     Board.find({ name: req.params.name }).exec(callback);
                 },
             });
@@ -108,4 +106,27 @@ const create_message = [
         }
     },
 ];
-export { index, board_detail, create_message };
+
+const delete_message = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    const { id, name } = req.params;
+
+    try {
+        const message = await Message.findByIdAndDelete(id);
+
+        res.status(204).json({
+            success: true,
+            msg: "Message deleted successfully",
+        });
+    } catch (err) {
+        res.status(400).json({
+            success: false,
+            err,
+        });
+    }
+};
+
+export { index, board_detail, create_message, delete_message };
