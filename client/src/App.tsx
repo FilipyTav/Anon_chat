@@ -44,7 +44,10 @@ const App: FC<Props> = (): ReactElement => {
 
                 <Route path="/board/:name" element={<Board user={user} />} />
 
-                <Route path="/signup" element={<Signup />} />
+                <Route
+                    path="/signup"
+                    element={<Signup get_user={get_user} />}
+                />
 
                 <Route
                     path="/signin"

@@ -2,16 +2,20 @@ import axios from "axios";
 import { ChangeEvent, FC, FormEvent, ReactElement, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-interface Props {}
+interface Props {
+    get_user: () => void;
+}
 
 type UserType = {
     username: string;
     password: string;
-    confirm_password: string;
+    confirm_password?: string;
 };
 
-const Signup: FC<Props> = (): ReactElement => {
+const Signup: FC<Props> = ({ get_user }): ReactElement => {
+    // The user to be created
     const [new_user, set_new_user] = useState<UserType>({} as UserType);
+    // Errors to be show to the user
     const [errors, set_errors] = useState<string[]>([]);
 
     const navigate = useNavigate();
@@ -31,6 +35,7 @@ const Signup: FC<Props> = (): ReactElement => {
         event.preventDefault();
         const err: string[] = [];
 
+        // Checks whether all the fields are empty or not
         const check_required = (obj: UserType): boolean => {
             for (const [key, value] of Object.entries(obj)) {
                 if (!value.trim()) err.push(`No ${key}`);
@@ -46,6 +51,7 @@ const Signup: FC<Props> = (): ReactElement => {
             return !err.length;
         };
 
+        // Client-side validation
         const validate_data = (obj: UserType): boolean => {
             const { username, password, confirm_password } = obj;
 
@@ -59,7 +65,7 @@ const Signup: FC<Props> = (): ReactElement => {
             return true;
         };
 
-        const is_data_ok = validate_data(new_user);
+        const is_data_ok: boolean = validate_data(new_user);
 
         !is_data_ok ? set_errors(err) : set_errors([]);
 
@@ -70,6 +76,15 @@ const Signup: FC<Props> = (): ReactElement => {
                     new_user,
                     { withCredentials: true }
                 );
+
+                const usr: UserType = { ...new_user };
+                delete usr.confirm_password;
+
+                await axios.post(`http://localhost:3001/users/login`, usr, {
+                    withCredentials: true,
+                });
+
+                get_user();
 
                 navigate("/boards");
             }
