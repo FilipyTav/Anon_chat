@@ -38,12 +38,12 @@ const board_detail = async (
         const { name } = req.params;
 
         // Gets the board and the messages, the most recent first
-        const board = await Board.find({ name }).populate({
+        const board: any = await Board.find({ name }).populate({
             path: "messages",
             populate: {
                 path: "author",
             },
-            options: { sort: { createAt: 1 } },
+            options: { sort: { createdAt: -1 } },
         });
 
         if (board.length === 0) throw "No board was found";
