@@ -3,6 +3,7 @@ import {
     ChangeEvent,
     FC,
     FormEvent,
+    MouseEvent,
     ReactElement,
     useEffect,
     useRef,
@@ -20,7 +21,6 @@ const Board: FC<Props> = ({ user }): ReactElement => {
     const { name } = useParams();
 
     const text = useRef<HTMLTextAreaElement | null>(null);
-    const msg_id = useRef<HTMLInputElement | null>(null);
 
     const [board_data, set_board_data] = useState<BoardType>({
         name: "",
@@ -69,7 +69,7 @@ const Board: FC<Props> = ({ user }): ReactElement => {
         try {
             const result = await axios.post(
                 `http://localhost:3001/board/${name}/messages/create`,
-                { new_comment, id: msg_id.current?.value },
+                { new_comment },
                 { withCredentials: true }
             );
 
@@ -87,6 +87,19 @@ const Board: FC<Props> = ({ user }): ReactElement => {
         const target: EventTarget & HTMLTextAreaElement = e.target;
 
         set_new_comment(target.value);
+    };
+
+    const delete_msg = async (
+        e: MouseEvent<HTMLButtonElement>
+    ): Promise<void> => {
+        const target = e.target as HTMLButtonElement;
+
+        const msg_id = target.nextSibling as HTMLInputElement;
+        const id = msg_id.value;
+
+        await axios.post(
+            `http://localhost:3001/board/${name}/messages/${id}/delete`
+        );
     };
 
     return (
@@ -150,7 +163,12 @@ const Board: FC<Props> = ({ user }): ReactElement => {
                             <p className="post_content">{msg.content}</p>
 
                             {user && user.membership_status === "admin" ? (
-                                <button className="delete_msg">Delete</button>
+                                <button
+                                    className="delete_msg"
+                                    onClick={delete_msg}
+                                >
+                                    Delete
+                                </button>
                             ) : (
                                 <></>
                             )}
@@ -160,7 +178,6 @@ const Board: FC<Props> = ({ user }): ReactElement => {
                                 disabled={true}
                                 value={msg._id}
                                 style={{ display: "none" }}
-                                ref={msg_id}
                             />
                         </div>
                     );
