@@ -2,6 +2,7 @@ import express, { Application } from "express";
 import path from "path";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 import session from "express-session";
 import passport from "passport";
@@ -49,7 +50,12 @@ passport.use(
                     return done(null, false, { message: "Incorrect username" });
                 }
 
-                if (user.password !== password) {
+                const is_pw_correct = await bcrypt.compare(
+                    password,
+                    user.password
+                );
+
+                if (!is_pw_correct) {
                     return done(null, false, { message: "Incorrect password" });
                 }
 

@@ -1,8 +1,9 @@
-import { Request, Response, NextFunction } from "express";
+import bcrypt from "bcryptjs";
+import { NextFunction, Request, Response } from "express";
 import {
     body,
-    ValidationError,
     Result,
+    ValidationError,
     validationResult,
 } from "express-validator";
 import passport from "passport";
@@ -53,15 +54,15 @@ const create_post = [
         if (db_user.length > 0)
             return res.status(400).json({ errors: ["Username already taken"] });
 
-        // TODO: hash passwords
-
-        // Create new user obj with the validated and sanitized values
-        const user = new User({ username, password });
-
         if (!errors.isEmpty())
             return res.status(400).json({ errors: errors.array() });
 
         try {
+            const hashed_password = await bcrypt.hash(password, 12);
+
+            // Create new user obj with the validated and sanitized values
+            const user = new User({ username, password: hashed_password });
+
             // Data is valid, save user
             const result = await user.save();
 
