@@ -73,47 +73,59 @@ const create_post = [
     },
 ];
 
-// const login_post = passport.authenticate("local", {
-//     successRedirect: "/",
-//     failureRedirect: "/",
-// });
+const login_post = [
+    // Validate and sanitize fieldsj
+    body("username", "Username must not be empty")
+        .trim()
+        .isLength({ min: 1 })
+        .escape(),
+    body("password", "Password must not be empty")
+        .trim()
+        .isLength({ min: 1 })
+        .escape(),
 
-const login_post = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-): Promise<void> => {
-    passport.authenticate("local", function (err, user, info) {
-        if (err) return next(err); // will generate a 500 error
+    // Process request
+    async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response<any, Record<string, any>> | undefined> => {
+        const errors: Result<ValidationError> = validationResult(req);
 
-        const messages: string[] = [];
+        if (!errors.isEmpty())
+            return res.status(400).json({ errors: errors.array() });
 
-        if (info) messages.push(info.message);
+        passport.authenticate("local", function (err, user, info) {
+            if (err) return next(err); // will generate a 500 error
 
-        // Generate a JSON response reflecting authentication status
-        if (messages.length)
-            return res.status(401).json({
-                success: false,
-                errors: messages,
+            const messages: string[] = [];
+
+            if (info) messages.push(info.message);
+
+            // Generate a JSON response reflecting authentication status
+            if (messages.length)
+                return res.status(401).json({
+                    success: false,
+                    errors: messages,
+                });
+
+            // ***********************************************************************
+            // "Note that when using a custom callback, it becomes the application's
+            // responsibility to establish a session (by calling req.login()) and send
+            // a response."
+            // Source: http://passportjs.org/docs
+            // ***********************************************************************
+            req.login(user, (login_err: Error) => {
+                if (login_err) return next(login_err);
+
+                return res.status(200).json({
+                    success: true,
+                    message: "Authentication succeeded",
+                });
             });
-
-        // ***********************************************************************
-        // "Note that when using a custom callback, it becomes the application's
-        // responsibility to establish a session (by calling req.login()) and send
-        // a response."
-        // Source: http://passportjs.org/docs
-        // ***********************************************************************
-        req.login(user, (login_err: Error) => {
-            if (login_err) return next(login_err);
-
-            return res.status(200).json({
-                success: true,
-                message: "Authentication succeeded",
-            });
-        });
-    })(req, res, next);
-};
-
+        })(req, res, next);
+    },
+];
 const logout_get = (req: Request, res: Response, next: NextFunction): void => {
     req.logout(function (err) {
         if (err) {
