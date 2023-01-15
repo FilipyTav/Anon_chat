@@ -3,8 +3,10 @@ import {
     ChangeEvent,
     FC,
     FormEvent,
+    MutableRefObject,
     ReactElement,
     useEffect,
+    useRef,
     useState,
 } from "react";
 import { useParams } from "react-router-dom";
@@ -17,6 +19,8 @@ interface Props {
 
 const Board: FC<Props> = ({ user }): ReactElement => {
     const { name } = useParams();
+
+    const text = useRef<HTMLTextAreaElement | null>(null);
 
     const [board_data, set_board_data] = useState<BoardType>({
         name: "",
@@ -55,12 +59,28 @@ const Board: FC<Props> = ({ user }): ReactElement => {
         return <>Anonymous</>;
     };
 
-    const handle_submit = (e: FormEvent<HTMLFormElement>): void => {
+    const handle_submit = async (
+        e: FormEvent<HTMLFormElement>
+    ): Promise<void> => {
         e.preventDefault();
 
         if (!new_comment.trim()) return;
 
-        axios.post("");
+        try {
+            const result = await axios.post(
+                `http://localhost:3001/board/${name}/messages/create`,
+                { new_comment },
+                { withCredentials: true }
+            );
+
+            get_board_data();
+
+            set_new_comment("");
+
+            text.current!.value = "";
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     const handle_change = (e: ChangeEvent<HTMLTextAreaElement>): void => {
@@ -83,6 +103,7 @@ const Board: FC<Props> = ({ user }): ReactElement => {
                         id="comment"
                         rows={6}
                         onChange={handle_change}
+                        ref={text}
                     ></textarea>
 
                     <button type="submit">OK</button>

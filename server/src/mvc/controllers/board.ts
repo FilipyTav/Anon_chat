@@ -1,4 +1,11 @@
 import { NextFunction, Request, Response } from "express";
+import {
+    body,
+    Result,
+    ValidationError,
+    validationResult,
+} from "express-validator";
+import async from "async";
 
 import Board from "../models/Board";
 import Message from "../models/Message";
@@ -50,12 +57,53 @@ const board_detail = async (
     }
 };
 
-const create_message = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-): Promise<void> => {
-    res.status(404);
-};
+const create_message = [
+    // Validates and sanitize fieldsj
+    body("new_comment", "Comment must not be empty")
+        .trim()
+        .isLength({ min: 1 })
+        .escape(),
 
+    // Processes request
+    async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response<any, Record<string, any>> | undefined> => {
+        const errors: Result<ValidationError> = validationResult(req);
+
+        if (!errors.isEmpty())
+            return res.status(400).json({ errors: errors.array() });
+
+        const { new_comment } = req.body;
+
+        const user: any = req.user;
+
+        try {
+            const results: any = await async.parallel({
+                user: function (callback) {
+                    User.find({ username: user.username }).exec(callback);
+                },
+                board: function (callback) {
+                    Board.find({ name: req.params.name }).exec(callback);
+                },
+            });
+
+            const message = new Message({
+                content: new_comment,
+                author: results.user[0],
+            });
+
+            results.board[0].messages.push(message);
+
+            await message.save();
+
+            await results.board[0].save();
+
+            res.status(201).json({ success: true });
+        } catch (err) {
+            next(err);
+        }
+    },
+];
 export { index, board_detail, create_message };
