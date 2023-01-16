@@ -5,7 +5,7 @@
 This app is not yet deployed, so if you want to see how it is:
 
 ```shell
-$ git clone {repo name placeholder}
+$ git clone https://github.com/FilipyTav/Anon_chat.git
 ```
 
 cd into the repo
@@ -43,8 +43,7 @@ MONGODB_CONNECTION;
 // Secret string to be used by express session (can be anything)
 SESSION_SECRET;
 
-// Those are the secret codes to change user membership status
-// basically, they are user privileges
+// Those are the secret codes to change user membership status, which are, basically, user privileges
 GUEST_CODE;
 MEMBER_CODE;
 ADMIN_CODE;
