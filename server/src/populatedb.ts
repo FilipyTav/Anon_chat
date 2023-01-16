@@ -35,11 +35,12 @@ type UserType = {
 //     description: String;
 // };
 
-const async = require("async");
+import async from "async";
+import bcrypt from "bcryptjs";
 
-import User, { UserInterface } from "./src/mvc/models/User";
-import Message, { MessageInterface } from "./src/mvc/models/Message";
-import Board, { BoardInterface } from "./src/mvc/models/Board";
+import Board, { BoardInterface } from "./mvc/models/Board";
+import Message, { MessageInterface } from "./mvc/models/Message";
+import User, { UserInterface } from "./mvc/models/User";
 
 import mongoose from "mongoose";
 const mongoDB = userArgs[0];
@@ -59,16 +60,22 @@ const users: UserInterface[] = [];
 const messages: MessageInterface[] = [];
 const boards: BoardInterface[] = [];
 
-async function UserCreate(
-    username: string,
-    password: string,
-    messages: MessageInterface[],
-    membership_status: string,
-    cb: Function
-) {
+async function UserCreate({
+    username,
+    password,
+    membership_status,
+    cb,
+}: {
+    username: string;
+    password: string;
+    membership_status: string;
+    cb: Function;
+}) {
+    const hashed_password = await bcrypt.hash(password, 12);
+
     const user_detail: UserType = {
         username,
-        password,
+        password: hashed_password,
         // messages: null,
         membership_status,
     };
@@ -143,57 +150,59 @@ async function BoardCreate(
     }
 }
 
-const createUsers = async (cb) => {
+const createUsers = async (
+    cb: async.AsyncResultArrayCallback<unknown, Error> | undefined
+) => {
     try {
         let results = await async.parallel(
             [
                 function (callback: Function) {
-                    UserCreate("Fake", "pw", [messages[0]], "guest", callback);
+                    UserCreate({
+                        username: "Fake",
+                        password: "pw",
+                        membership_status: "guest",
+                        cb: callback,
+                    });
                 },
                 function (callback: Function) {
-                    UserCreate(
-                        "user1",
-                        "passw",
-                        [messages[1]],
-                        "member",
-                        callback
-                    );
+                    UserCreate({
+                        username: "user1",
+                        password: "passw",
+                        membership_status: "member",
+                        cb: callback,
+                    });
                 },
                 function (callback: Function) {
-                    UserCreate(
-                        "user2",
-                        "password",
-                        [messages[2]],
-                        "member",
-                        callback
-                    );
+                    UserCreate({
+                        username: "user2",
+                        password: "password",
+                        membership_status: "member",
+                        cb: callback,
+                    });
                 },
                 function (callback: Function) {
-                    UserCreate(
-                        "user3",
-                        "random password",
-                        [messages[3]],
-                        "guest",
-                        callback
-                    );
+                    UserCreate({
+                        username: "user3",
+                        password: "random password",
+                        membership_status: "guest",
+                        cb: callback,
+                    });
                 },
                 function (callback: Function) {
-                    UserCreate(
-                        "userm",
-                        "random password",
-                        [messages[4]],
-                        "member",
-                        callback
-                    );
+                    UserCreate({
+                        username: "userm",
+                        password: "random password",
+                        membership_status: "member",
+                        cb: callback,
+                    });
                 },
                 function (callback: Function) {
-                    UserCreate(
-                        "whatever",
-                        "random thingy",
-                        [],
-                        "admin",
-                        callback
-                    );
+                    UserCreate({
+                        username: "whatever",
+                        password: "random thingy",
+                        membership_status: "admin",
+                        cb: callback,
+                    });
                 },
             ],
             // This callback is not optional at all
@@ -205,9 +214,11 @@ const createUsers = async (cb) => {
     }
 };
 
-const createMessages = async (cb) => {
+const createMessages = async (
+    cb: async.AsyncResultArrayCallback<unknown, Error> | undefined
+) => {
     try {
-        let results = await async.parallel(
+        const result = await async.parallel(
             [
                 function (callback: Function) {
                     MessageCreate(users[0], "first message", callback);
@@ -236,7 +247,9 @@ const createMessages = async (cb) => {
     }
 };
 
-const createBoards = async (cb) => {
+const createBoards = async (
+    cb: async.AsyncResultArrayCallback<unknown, Error> | undefined
+) => {
     try {
         let results = await async.parallel(
             [
