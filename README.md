@@ -2,6 +2,8 @@
 
 ### Read and send messages
 
+<img src="./assets/images/App messages screenshot.png" alt="Messages screenshot"/>
+
 This app is not yet deployed, so if you want to see how it is:
 
 ```shell
